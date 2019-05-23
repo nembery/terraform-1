@@ -14,3 +14,4 @@ variable "WebLB_IP" {}
 variable "Webserver_IP1" {}
 variable "Webserver_IP2" {}
 variable "Attacker_IP" {}
+variable "credentials_file" {}

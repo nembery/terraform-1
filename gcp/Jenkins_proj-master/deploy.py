@@ -491,7 +491,7 @@ def apply_tf(working_dir, vars, description):
 
 
 
-def main(username, password, GCP_region, Billing_Account ):
+def main(username, password, GCP_region, Billing_Account, credentials_file_path):
 
     """
     Main function
@@ -506,16 +506,22 @@ def main(username, password, GCP_region, Billing_Account ):
     # TODO maybe use a zone lookup but for now use region-B
     GCP_Zone = 'us-central1-b'
 
+    full_file_path = os.path.expanduser(credentials_file_path)
+    print(f'Using full file path of {full_file_path}')
 
-
-
+    if not os.path.exists(full_file_path):
+        print('Could not locate the credentials file, Ensure this is a relative path from your HOME folder')
+        print('The path MUST be in the following format: ~/Downloads/credentials.json')
+        print('The ~ is required in this case as your HOME folder is most likely mounted as a volume')
+        sys.exit(1)
 
     WebInDeploy_vars = {
         'GCP_Zone': GCP_Zone,
         'GCP_Region': GCP_region,
         'Billing_Account': Billing_Account,
         'Admin_Username': username,
-        'Admin_Password': password
+        'Admin_Password': password,
+        'credentials_file': full_file_path
     }
 
     WebInFWConf_vars = {
@@ -641,6 +647,7 @@ if __name__ == '__main__':
     parser.add_argument('-a', '--GCP_Region', help='GCP Region', required=True)
     # parser.add_argument('-r', '--GCP_Zone', help='GCP Zone', required=True)
     parser.add_argument('-m', '--Billing_Account', help='Billing Account', required=True)
+    parser.add_argument('-c', '--gcp_credentials_file', help='GCP Credentials File Path', required=True)
 
     args = parser.parse_args()
     username = args.username
@@ -648,5 +655,6 @@ if __name__ == '__main__':
     # GCP_Zone = args.GCP_Zone
     GCP_Region = args.GCP_Region
     Billing_Account = args.Billing_Account
+    credentials_file_path = args.gcp_credentials_file
 
-    main(username, password, GCP_Region, Billing_Account)
+    main(username, password, GCP_Region, Billing_Account, credentials_file_path)

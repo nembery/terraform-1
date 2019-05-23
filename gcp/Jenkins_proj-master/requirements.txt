@@ -1,0 +1,11 @@
+certifi
+chardet
+collections2
+idna
+pan-python
+pandevice
+python-terraform
+requests
+urllib3
+xmltodict
+google-cloud-storage
