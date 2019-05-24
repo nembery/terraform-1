@@ -1,0 +1,17 @@
+To authenticate to GCP, please run the following command in a terminal:
+
+
+docker run -ti  --rm -v $HOME:/root google/cloud-sdk:alpine gcloud auth application-default login
+
+
+This command will display a link that you should copy into your browser. This will then display a verification
+code that you use to authenticate this machine.
+
+
+For more information, see the Google Cloud SDK guide here:
+
+https://cloud.google.com/sdk/gcloud/
+
+And for more information on authenticating, see here:
+https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
+
